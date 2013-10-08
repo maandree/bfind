@@ -1,15 +1,9 @@
 _/
 bin/
-obj/
+__pycache__/
 \#*\#
 .*
 !.git*
-*.swo
-*.swp
-*.gch
-*.o
-*.out
-*.so
-*.la
-*.a
+*.sw[op]
+*.py[co]
 
