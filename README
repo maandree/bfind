@@ -3,7 +3,7 @@ Minimalitic `find` using breadth first crawling.
 The entire invocation syntax is:
 
     bfind [--xdev] [--hardlinks] [--symlinks] \
-          [--visible] [--] DIRECTORY
+          [--visible] [--print0] [--] DIRECTORY
 
 With --xdev crawling will not be restricted to
 one mount point.
@@ -26,6 +26,7 @@ Short option alternatives:
     -h --hardlinks
     -s --symlinks
     -v --visible
+    -0 --print0
 
     Short options can be combined
 
