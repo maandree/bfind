@@ -2,7 +2,7 @@ Minimalitic `find` using breadth first crawling.
 
 The entire invocation syntax is:
 
-    bfind [--xdev] [--hardlinks] [--symlinks] DIRECTORY
+    bfind [--xdev] [--hardlinks] [--symlinks] [--] DIRECTORY
 
 With --xdev crawling will not be restricted to
 one mount point.
@@ -13,7 +13,7 @@ on directories.
 With --symlinks, bfind will visit directories
 symlinks points, and directories will never
 be revisited. Visited directories will be
-memorised by absolute path name.
+memorised by absolute real path name.
 
 
 Short option alternatives:
@@ -25,6 +25,5 @@ Short option alternatives:
     Short options can be combined
 
 
-Each link will always start with DIRECTORY
-and always and with a /.
+Each link will always start with DIRECTORY.
 
