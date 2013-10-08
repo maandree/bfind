@@ -24,6 +24,7 @@ import os
 xdev = False
 hardlinks = False
 symlinks = False
+visible = False
 path = ''
 
 for arg in sys.argv[1:]:
@@ -33,6 +34,7 @@ for arg in sys.argv[1:]:
         if arg == '--xdev'      or (arg[:2] != '--' and 'x' in arg):  xdev      = True
         if arg == '--hardlinks' or (arg[:2] != '--' and 'h' in arg):  hardlinks = True
         if arg == '--symlinks'  or (arg[:2] != '--' and 's' in arg):  symlinks  = True
+        if arg == '--visible'   or (arg[:2] != '--' and 'v' in arg):  visible   = True
 
 visited_name = set()
 visited_id = set()
@@ -47,6 +49,8 @@ else:
 while len(queue) > 0:
     path = queue[1]
     queue[:] = queue[1:]
+    if visible and (path.startswith('.') or ('/.' in path)):
+        continue
     if hardlinks:
         stat = os.stat(path)
         stat = (stat.st_dev, stat.st_ino)
