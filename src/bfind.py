@@ -65,7 +65,7 @@ while len(queue) > 0:
             continue
         visited_name.add(os.path.realpath(path))
     if not xdev:
-        if os.stat(path).st_dev != start_dev: # TODO make sure there is not symlinking problems
+        if os.stat(path).st_dev != start_dev: # TODO make sure there is not symlinking problems # TODO fails on broken links
             continue
     sys.stdout.buffer.write(path.encode('utf-8'))
     sys.stdout.buffer.write(ending)
