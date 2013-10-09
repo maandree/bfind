@@ -16,8 +16,12 @@ symlinks points, and directories will never
 be revisited. Visited directories will be
 memorised by absolute real path name.
 
-With --visible not files starting with a dot
+With --visible no files starting with a dot
 will be listed.
+
+With --print0 a NUL (\0) character will be
+printed at end of file names rather than
+a LF (\n).
 
 
 Short option alternatives:

@@ -25,6 +25,7 @@ xdev = False
 hardlinks = False
 symlinks = False
 visible = False
+ending = '\n'.encode('utf-8')
 path = ''
 
 for arg in sys.argv[1:]:
@@ -35,6 +36,7 @@ for arg in sys.argv[1:]:
         if arg == '--hardlinks' or (arg[:2] != '--' and 'h' in arg):  hardlinks = True
         if arg == '--symlinks'  or (arg[:2] != '--' and 's' in arg):  symlinks  = True
         if arg == '--visible'   or (arg[:2] != '--' and 'v' in arg):  visible   = True
+        if arg == '--print0'    or (arg[:2] != '--' and '0' in arg):  ending    = '\0'.encode('utf-8')
 
 visited_name = set()
 visited_id = set()
@@ -65,6 +67,7 @@ while len(queue) > 0:
         if os.stat(path).st_dev != start_dev: # TODO make sure there is not symlinking problems
             continue
     sys.stdout.buffer.write(path.encode('utf-8'))
+    sys.stdout.buffer.write(ending)
     sys.stdout.buffer.flush()
     if os.path.isdir(path) and (symlinks or not os.path.islink(path)):
         for subd in os.listdir(path):
