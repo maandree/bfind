@@ -64,14 +64,20 @@ while len(queue) > 0:
         if os.path.realpath(path) in visited_name:
             continue
         visited_name.add(os.path.realpath(path))
-    if not xdev:
-        if os.stat(path).st_dev != start_dev: # TODO make sure there is not symlinking problems # TODO fails on broken links
-            continue
     sys.stdout.buffer.write(path.encode('utf-8'))
     sys.stdout.buffer.write(ending)
     sys.stdout.buffer.flush()
+    if not xdev:
+        try:
+            if os.stat(path).st_dev != start_dev:
+                continue
+        except:
+            pass # link is broken
     if os.path.isdir(path) and (symlinks or not os.path.islink(path)):
-        for subd in os.listdir(path):
-            subd = path + os.sep + subd
-            queue.append(subd)
+        try:
+            for subd in os.listdir(path):
+                subd = path + os.sep + subd
+                queue.append(subd)
+        except PermissionError:
+            print('Permission denied: %s' % path)
 
