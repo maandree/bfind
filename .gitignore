@@ -1,9 +1,9 @@
 _/
-bin/
 __pycache__/
 \#*\#
 .*
 !.git*
 *.sw[op]
 *.py[co]
+/bfind
 
