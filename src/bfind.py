@@ -26,6 +26,7 @@ hardlinks = False
 symlinks = False
 visible = False
 ending = '\n'.encode('utf-8')
+dashed = False
 path = ''
 
 for arg in sys.argv[1:]:
@@ -44,12 +45,12 @@ queue = None
 start_dev = os.stat(path if path != '' else '.').st_dev
 
 if path == '':
-    queue = [os.listdir()]
+    queue = os.listdir()
 else:
     queue = [path]
 
 while len(queue) > 0:
-    path = queue[1]
+    path = queue[0]
     queue[:] = queue[1:]
     if visible and (path.startswith('.') or ('/.' in path)):
         continue
