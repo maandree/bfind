@@ -43,6 +43,7 @@ visited_name = set()
 visited_id = set()
 queue = None
 start_dev = os.stat(path if path != '' else '.').st_dev
+start_len = len(path)
 
 if path == '':
     queue = os.listdir()
@@ -52,7 +53,7 @@ else:
 while len(queue) > 0:
     path = queue[0]
     queue[:] = queue[1:]
-    if visible and (path.startswith('.') or ((os.sep + '.') in path)):
+    if visible and ((os.sep + '.') in path[start_len:]):
         continue
     if hardlinks:
         stat = os.stat(path)
