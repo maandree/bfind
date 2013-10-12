@@ -1,9 +1,9 @@
-Minimalitic `find` using breadth first crawling.
+Minimalitic `find` using breadth-first crawling.
 
 The entire invocation syntax is:
 
     bfind [--xdev] [--hardlinks] [--symlinks] \
-          [--visible] [--print0] [--] DIRECTORY
+          [--visible] [--print0] [--] [DIRECTORY]
 
 With --xdev crawling will not be restricted to
 one mount point.
@@ -35,7 +35,7 @@ Short option alternatives:
     Short options can be combined
 
 
-Each link will always start with DIRECTORY.
+Each line will always start with DIRECTORY.
 
 
 Why bfind? While bfind is not as fast as find*,
