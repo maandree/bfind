@@ -6,4 +6,20 @@ __pycache__/
 *.sw[op]
 *.py[co]
 /bfind
+*.gz
+*.xz
+*.install
+*.aux
+*.cp
+*.fn
+*.info
+*.ky
+*.log
+*.pdf
+*.ps
+*.dvi
+*.pg
+*.toc
+*.tp
+*.vr
 
