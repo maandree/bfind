@@ -3,6 +3,7 @@ __pycache__/
 \#*\#
 .*
 !.git*
+*~
 *.sw[op]
 *.py[co]
 /bfind
