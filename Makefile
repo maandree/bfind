@@ -54,8 +54,8 @@ install-doc: install-info
 
 .PHONY: install-info
 install-info: bfind.info.gz
-        install -dm755 -- "$(DESTDIR)$(PREFIX)$(DATA)/info"
-        install -m644 bfind.info.gz -- "$(DESTDIR)$(PREFIX)$(DATA)/info/$(PKGNAME).info.gz"
+	install -dm755 -- "$(DESTDIR)$(PREFIX)$(DATA)/info"
+	install -m644 bfind.info.gz -- "$(DESTDIR)$(PREFIX)$(DATA)/info/$(PKGNAME).info.gz"
 
 
 .PHONY: uninstall
