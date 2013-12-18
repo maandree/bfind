@@ -53,8 +53,11 @@ else:
 while len(queue) > 0:
     path = queue[0]
     queue[:] = queue[1:]
-    if visible and ((os.sep + '.') in path[start_len:]):
-        continue
+    if visible:
+        if (os.sep + '.') in path[start_len:]:
+            continue
+        elif (start_len == 0) and path.startswith('.'):
+            continue
     if hardlinks:
         stat = os.stat(path)
         stat = (stat.st_dev, stat.st_ino)
