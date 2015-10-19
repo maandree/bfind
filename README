@@ -41,7 +41,7 @@ Each line will always start with DIRECTORY.
 Why bfind? While bfind is not as fast as find*,
 it will probably give your results faster if
 you are looking for a file (not list files),
-becuase the file you are looking for is probably
+because the file you are looking for is probably
 near the directory you are searching from.
 
 
