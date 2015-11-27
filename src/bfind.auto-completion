@@ -1,6 +1,6 @@
 (bfind
 	(unargumented  (options -x --xdev)  (complete --xdev)
-	(desc 'Do not crawl across mount points'))
+	(desc 'Crawl across mount points'))
 
 	(unargumented  (options -h --hardlinks)  (complete --hardlinks)
 	(desc 'Be aware of hardlinked directories'))

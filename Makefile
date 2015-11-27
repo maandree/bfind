@@ -5,6 +5,8 @@ BINDIR = $(PREFIX)/bin
 DATADIR = $(PREFIX)/share
 INFODIR = $(DATADIR)/info
 DOCDIR = $(DATADIR)/doc
+MANDIR = $(DATADIR)/man
+MAN1DIR = $(MANDIR)/man1
 LICENSEDIR = $(DATADIR)/licenses
 
 COMMAND = bfind
@@ -86,7 +88,7 @@ bin/bfind.%sh-completion: obj/bfind.auto-completion
 
 
 .PHONY: install-default
-install-default: install-core install-info install-shell
+install-default: install-core install-info install-man install-shell
 
 .PHONY: install
 install: install-core install-doc install-shell
@@ -105,7 +107,7 @@ install-license:
 	install -m644 -- COPYING LICENSE "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
 
 .PHONY: install-doc
-install-doc: install-info install-pdf install-dvi install-ps
+install-doc: install-info install-pdf install-dvi install-ps install-man
 
 .PHONY: install-info
 install-info: bin/bfind.info
@@ -126,6 +128,11 @@ install-dvi: bin/bfind.dvi
 install-ps: bin/bfind.ps
 	install -dm755 -- "$(DESTDIR)$(DOCDIR)"
 	install -m644 $< -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).ps"
+
+.PHONY: install-man
+install-man: doc/man/bfind.1
+	install -dm755 -- "$(DESTDIR)$(MAN1DIR)"
+	install -m644 $< -- "$(DESTDIR)$(MAN1DIR)/$(COMMAND).1"
 
 .PHONY: install-shell
 install-shell: install-bash install-fish install-zsh
@@ -160,6 +167,7 @@ uninstall:
 	-rm -- "$(DESTDIR)$(DATADIR)/bash-completion/completions/$(COMMAND)"
 	-rm -- "$(DESTDIR)$(DATADIR)/fish/completions/$(COMMAND).fish"
 	-rm -- "$(DESTDIR)$(DATADIR)/zsh/site-functions/_$(COMMAND)"
+	-rm -- "$(DESTDIR)$(MAN1DIR)/$(COMMAND).1"
 
 
 

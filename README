@@ -1,49 +1,48 @@
-Minimalitic `find` using breadth-first crawling.
+NAME
+	bfind - Minimalitic find using breadth-first crawling
 
-The entire invocation syntax is:
+SYNOPSIS
+	bfind [OPTION]... [--] [DIRECTORY]
 
-    bfind [--xdev] [--hardlinks] [--symlinks] \
-          [--visible] [--print0] [--] [DIRECTORY]
+DESCRIPTION
+	bfind is a minimalitic alternative to find(1) that is
+	designed to be efficient that locating files. To
+	accomplish this, bfind uses breadth-first crawling
+	instead of depth-first crawling.
 
-With --xdev crawling will not be restricted to
-one mount point.
+	bfind is only includes the bare minimum, a few options
+	for restricting the crawlspace and an option to output
+	visited files in a safe format rather than a human-friendly
+	format. bfind will never include all features of find(1)
+	because they are excessive and some other than makes not
+	since to have in the program and can be outright dangerous.
 
-With --hardlinks bfind will be hardlink aware
-on directories.
+OPTIONS
+	-x, --xdev
+		Do not restrict crawling to one mount point.
 
-With --symlinks bfind will visit directories
-symlinks points, and directories will never
-be revisited. Visited directories will be
-memorised by absolute real path name.
+	-h, --hardlinks
+		Watch out for hardlinked directories.
 
-With --visible no files starting with a dot
-will be listed.
+	-s, --symlinks
+		Visit symbolically linked directories, but
+		never visit the same directory twice.
 
-With --print0 a NUL (\0) character will be
-printed at end of file names rather than
-a LF (\n).
+	-v, --visible
+		No files starting with a dot will be listed.
 
+	-0, --print0
+		Terminate lines with NUL rather than LF.
 
-Short option alternatives:
+RATIONALE
+	While bfind is not as fast as find(1) for large
+	hierarchies, it will probably give your results faster
+	if you are looking for a file (rather than listing files),
+	because the file you are looking for is probably
+	near the directory you are searching from.
 
-    -x --xdev
-    -h --hardlinks
-    -s --symlinks
-    -v --visible
-    -0 --print0
+SEE ALSO
+	find(1), grep(1)
 
-    Short options can be combined
-
-
-Each line will always start with DIRECTORY.
-
-
-Why bfind? While bfind is not as fast as find*,
-it will probably give your results faster if
-you are looking for a file (not list files),
-because the file you are looking for is probably
-near the directory you are searching from.
-
-
-* For large hierarchies.
+	Full documentation available locally via: info '(bfind)'
 
