@@ -15,10 +15,10 @@ PY3_SHEBANG = /usr/bin/env python3
 
 
 .PHONY: default
-default: cmd info
+default: cmd info shell
 
 .PHONY: all
-all: cmd doc
+all: cmd doc shell
 
 .PHONY: cmd
 cmd: bin/bfind
@@ -62,13 +62,34 @@ bin/%.ps: doc/info/%.texinfo
 	cd obj/ps && texi2pdf --ps ../../"$<" < /dev/null
 	mv obj/ps/$*.ps $@
 
+.PHONY: shell
+shell: bash fish zsh
+
+.PHONY: bash
+bash: bin/bfind.bash-completion
+
+.PHONY: fish
+fish: bin/bfind.fish-completion
+
+.PHONY: zsh
+zsh: bin/bfind.zsh-completion
+
+obj/bfind.auto-completion: src/bfind.auto-completion
+	@mkdir -p obj
+	cp $< $@
+	sed -i 's/^(bfind$$/($(COMMAND)/' $@
+
+bin/bfind.%sh-completion: obj/bfind.auto-completion
+	@mkdir -p bin
+	auto-auto-complete $*sh --output $@ --source $<
+
 
 
 .PHONY: install-default
-install-default: install-core install-info
+install-default: install-core install-info install-shell
 
 .PHONY: install
-install: install-core install-doc
+install: install-core install-doc install-shell
 
 .PHONY: install-core
 install-core: install-cmd install-license
@@ -106,6 +127,24 @@ install-ps: bin/bfind.ps
 	install -dm755 -- "$(DESTDIR)$(DOCDIR)"
 	install -m644 $< -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).ps"
 
+.PHONY: install-shell
+install-shell: install-bash install-fish install-zsh
+
+.PHONY: install-bash
+install-bash: bin/bfind.bash-completion
+	install -dm755 -- "$(DESTDIR)$(DATADIR)/bash-completion/completions"
+	install -m644 $< -- "$(DESTDIR)$(DATADIR)/bash-completion/completions/$(COMMAND)"
+
+.PHONY: install-fish
+install-fish: bin/bfind.fish-completion
+	install -dm755 -- "$(DESTDIR)$(DATADIR)/fish/completions"
+	install -m644 $< -- "$(DESTDIR)$(DATADIR)/fish/completions/$(COMMAND).fish"
+
+.PHONY: install-zsh
+install-zsh: bin/bfind.zsh-completion
+	install -dm755 -- "$(DESTDIR)$(DATADIR)/zsh/site-functions"
+	install -m644 $< -- "$(DESTDIR)$(DATADIR)/zsh/site-functions/_$(COMMAND)"
+
 
 
 .PHONY: uninstall
@@ -118,6 +157,9 @@ uninstall:
 	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).pdf"
 	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).dvi"
 	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).ps"
+	-rm -- "$(DESTDIR)$(DATADIR)/bash-completion/completions/$(COMMAND)"
+	-rm -- "$(DESTDIR)$(DATADIR)/fish/completions/$(COMMAND).fish"
+	-rm -- "$(DESTDIR)$(DATADIR)/zsh/site-functions/_$(COMMAND)"
 
 
 
