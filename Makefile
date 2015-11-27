@@ -87,11 +87,11 @@ bin/bfind.%sh-completion: obj/bfind.auto-completion
 
 
 
-.PHONY: install-default
-install-default: install-core install-info install-man install-shell
-
 .PHONY: install
-install: install-core install-doc install-shell
+install: install-core install-info install-man install-shell
+
+.PHONY: install-all
+install-all: install-core install-doc install-shell
 
 .PHONY: install-core
 install-core: install-cmd install-license
