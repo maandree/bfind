@@ -1,0 +1,115 @@
+.TH BFIND 1 bfind
+.SH NAME
+bfind - minimalitic find using breadth-first crawling
+
+.SH SYNOPSIS
+.BR bfind
+[-0hsvx]
+.RI [ directory ]
+
+.SH DESCRIPTION
+.BR bfind
+is a minimalistic alternative to
+.BR find (1)
+that is designed to be efficient that locating files.
+To accomplish this,
+.BR bfind
+uses breadth-first crawling instead of depth-first crawling.
+.PP
+.BR bfind
+is only includes the bare minimum, a few options for
+restricting the crawlspace and an option to output
+visited files in a safe format rather than a human-friendly
+format.
+.BR bfind
+will never include all features of
+.BR find (1)
+because they are excessive and some other than makes
+not since to have in the program and can be outright
+dangerous.
+
+.SH OPTIONS
+The
+.B bfind
+utility conforms to the Base Definitions volume of POSIX.1-2017,
+.IR "Section 12.2" ,
+.IR "Utility Syntax Guidelines" .
+.PP
+The following options are supported:
+.TP
+.BR \-0
+Terminate lines with NUL rather than LF.
+.TP
+.BR \-h
+Watch out for hardlinked directories.
+.TP
+.BR \-s
+Visit symbolically linked directories, but
+never visit the same directory twice.
+.TP
+.BR \-v
+No files starting with a dot will be listed.
+.TP
+.BR \-x
+Do not restrict crawling to one mount point.
+
+.SH OPERANDS
+The following operand is supported:
+.TP
+.I directory
+The directory to crawl. If not specified, the current
+working directory is crawled.
+
+.SH STDIN
+Not used.
+
+.SH INPUT FILES
+.I directory
+may be of any type.
+
+.SH ENVIRONMENT VARIABLES
+No environment variables affects the execution of
+.BR bfind .
+
+.SH ASYNCHRONOUS EVENTS
+Default.
+
+.SH STDOUT
+The
+.B bfind
+utility prints all visited files to the standard output.
+
+.SH STDERR
+The standard error is only used for diagnostic messages.
+
+.SH OUTPUT FILES
+None.
+
+.SH EXTENDED DESCRIPTION
+None.
+
+.SH EXIT STATUS
+The
+.B bfind
+utility exits with one of the following statuses:
+.TP
+0
+Successful.
+.TP
+1
+On error, including missing permissions to crawl a directory.
+
+.SH RATIONALE
+While
+.BR bfind
+is not as fast as
+.BR find (1)
+for large hierarchies, it will probably give your
+results faster if you are looking for a file (rather
+than listing files), because the file you are looking
+for is probably near the directory you are searching
+from.
+
+.SH SEE ALSO
+.BR find (1),
+.BR grep (1)

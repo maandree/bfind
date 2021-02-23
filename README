@@ -1,11 +1,11 @@
 NAME
-	bfind - Minimalitic find using breadth-first crawling
+	bfind - minimalistic find using breadth-first crawling
 
 SYNOPSIS
-	bfind [OPTION]... [--] [DIRECTORY]
+	bfind [-0hsvx] [directory]
 
 DESCRIPTION
-	bfind is a minimalitic alternative to find(1) that is
+	bfind is a minimalistic alternative to find(1) that is
 	designed to be efficient that locating files. To
 	accomplish this, bfind uses breadth-first crawling
 	instead of depth-first crawling.
@@ -18,21 +18,21 @@ DESCRIPTION
 	since to have in the program and can be outright dangerous.
 
 OPTIONS
-	-x, --xdev
-		Do not restrict crawling to one mount point.
+	-0
+		Terminate lines with NUL rather than LF.
 
-	-h, --hardlinks
+	-h
 		Watch out for hardlinked directories.
 
-	-s, --symlinks
+	-s
 		Visit symbolically linked directories, but
 		never visit the same directory twice.
 
-	-v, --visible
+	-v
 		No files starting with a dot will be listed.
 
-	-0, --print0
-		Terminate lines with NUL rather than LF.
+	-x
+		Do not restrict crawling to one mount point.
 
 RATIONALE
 	While bfind is not as fast as find(1) for large
@@ -43,6 +43,3 @@ RATIONALE
 
 SEE ALSO
 	find(1), grep(1)
-
-	Full documentation available locally via: info '(bfind)'
-
