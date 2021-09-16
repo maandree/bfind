@@ -217,7 +217,7 @@ main(int argc, char *argv[])
 {
 	char ending = '\n', *path;
 	struct stat st;
-	dev_t start_dev;
+	dev_t start_dev = 0; /* compiler incorrectly thinks its may be uninitialised if not assigned */
 	size_t i;
 
 	ARGBEGIN {

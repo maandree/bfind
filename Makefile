@@ -7,7 +7,7 @@ include $(CONFIGFILE)
 all: bfind
 
 bfind.o: bfind.c arg.h
-	$(CC) -c -o $@ bfind.c $(CPPFLAGS) $(CFLAGS)
+	$(CC) -c -o $@ bfind.c $(CFLAGS) $(CPPFLAGS)
 
 bfind: bfind.o
 	$(CC) -o $@ bfind.o $(LDFLAGS)
@@ -23,6 +23,6 @@ uninstall:
 	-rm -f -- "$(DESTDIR)$(MANPREFIX)/man1/bfind.1"
 
 clean:
-	-rm -rf -- bfind *.o
+	-rm -rf -- bfind *.o *.su
 
 .PHONY: all install uninstall clean
