@@ -219,6 +219,7 @@ main(int argc, char *argv[])
 	struct stat st;
 	dev_t start_dev = 0; /* compiler incorrectly thinks its may be uninitialised if not assigned */
 	size_t i;
+	void *new;
 
 	ARGBEGIN {
 	case '0':
@@ -260,7 +261,7 @@ main(int argc, char *argv[])
 	else
 		enqueue_dir(NULL);
 
-	while ((path = dequeue())) {
+	for (; (path = dequeue()); free(path)) {
 		printf("%s%c", path, ending);
 		if (stat(path, &st)) {
 			if (errno != ENOENT && errno != ELOOP) {
@@ -269,28 +270,29 @@ main(int argc, char *argv[])
 			}
 			continue;
 		}
-		if (S_ISDIR(st.st_mode)) {
-			if (!xdev && st.st_dev != start_dev)
-				continue;
-			if (hardlinks) {
-				for (i = 0; i < ndevices; i++)
-					if (devices[i].dev == st.st_dev)
-						break;
-				if (i == ndevices) {
-					devices = realloc(devices, (ndevices + 1) * sizeof(*devices));
-					if (!devices) {
-						fprintf(stderr, "%s: realloc: %s\n", argv0, strerror(errno));
-						status = 1;
-					}
-					memset(&devices[ndevices], 0, sizeof(*devices));
-					devices[ndevices++].dev = st.st_dev;
-				}
-				if (visit_inode(&devices[i], st.st_ino))
+		if (!S_ISDIR(st.st_mode))
+			continue;
+		if (!xdev && st.st_dev != start_dev)
+			continue;
+		if (hardlinks) {
+			for (i = 0; i < ndevices; i++)
+				if (devices[i].dev == st.st_dev)
+					break;
+			if (i == ndevices) {
+				new = realloc(devices, (ndevices + 1) * sizeof(*devices));
+				if (!new) {
+					fprintf(stderr, "%s: realloc: %s\n", argv0, strerror(errno));
+					status = 1;
 					continue;
+				}
+				devices = new;
+				memset(&devices[ndevices], 0, sizeof(*devices));
+				devices[ndevices++].dev = st.st_dev;
 			}
-			enqueue_dir(path);
+			if (visit_inode(&devices[i], st.st_ino))
+				continue;
 		}
-		free(path);
+		enqueue_dir(path);
 	}
 
 	if (fflush(stdout) || ferror(stdout) || fclose(stdout)) {

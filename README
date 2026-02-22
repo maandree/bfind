@@ -6,16 +6,16 @@ SYNOPSIS
 
 DESCRIPTION
 	bfind is a minimalistic alternative to find(1) that is
-	designed to be efficient that locating files. To
+	designed to be efficient at locating files. To
 	accomplish this, bfind uses breadth-first crawling
 	instead of depth-first crawling.
 
-	bfind is only includes the bare minimum, a few options
-	for restricting the crawlspace and an option to output
+	bfind includes only the bare minimum: a few options
+	for restricting the crawl space and an option to output
 	visited files in a safe format rather than a human-friendly
 	format. bfind will never include all features of find(1)
-	because they are excessive and some other than makes not
-	since to have in the program and can be outright dangerous.
+	because they are excessive, and some of them do not make
+	sense to have in the program and can be outright dangerous.
 
 OPTIONS
 	-0
